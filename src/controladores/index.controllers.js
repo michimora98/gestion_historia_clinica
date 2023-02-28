@@ -1,9 +1,11 @@
-//Conexión a postgres 
+/*Controlador principa de las funciones*/
+
 const bcrypt = require ('bcryptjs');
 const { response } = require('express');
 const passport = require('passport')
 const {tokenSign, verifyToken} = require('../controladores/tokens');
 
+//Conexión a BD de postgres 
 const { Pool } = require('pg')
 const pool = new Pool({
     host: 'localhost',
@@ -23,8 +25,11 @@ const compare = async (passwordPlain, hasPassword) => {
     return await bcrypt.compare(passwordPlain, hasPassword)
 }
 
+
+//Permite verificar si un usuario se encuentra autenticado o no
 const checkAuth = async (req,res,next) => {
 
+    try{
         const tokenHeader = req.headers.authorization
         if (!tokenHeader) {
             res.send({ error: 'No tienes autorización para crear este registo' })
@@ -38,9 +43,17 @@ const checkAuth = async (req,res,next) => {
         } else {
             res.send({error: 'No tienes autorización para crear este registro'})
         }
+    }catch (e){
+        console.log(e);
+        res.send({error: 'No tienes autorización para crear este registro'})
+    }
 
 
 }
+
+/*Las funciones checkRole, permiten verificar si un usuario cuenta con los permisos para llevar a cabo una acción 
+dentro de un pefil, en caso de no tenerla, el usuario obtendra como resultado el msj que indica la no autorización
+a la tarea que desea realizar*/
 
 const checkRoleAuth =  async (req,res,next) => {
     try {
@@ -59,6 +72,7 @@ const checkRoleAuth =  async (req,res,next) => {
             res.status({error:'No tienes permisos'})
         }
     } catch (e) {{
+        console.log(e);
         res.send({ error: 'No tienes autorización para crear este usuario' })
     }}
     
@@ -82,6 +96,7 @@ const checkRoleAuthMed =  async (req,res,next) => {
             res.status({error:'No tienes permisos'})
         }
     } catch (e) {{
+        console.log(e);
         res.send({ error: 'No tienes autorización para crear observaciones' })
     }}
     
@@ -105,6 +120,7 @@ const checkRoleAuthPac =  async (req,res,next) => {
             res.status({error:'No tienes permisos'})
         }
     } catch (e) {{
+        console.log(e);
         res.send({ error: 'No tienes autorización' })
     }}
     
@@ -112,49 +128,59 @@ const checkRoleAuthPac =  async (req,res,next) => {
 }
 
 //ruta users, que permite retornar usuarios de la base de datos
-const getUsers =  async(req,res) => { 
-    const response = await pool.query('select * from historia.medico');
-    res.status(200).json(response.rows);
-};
-
-//ruta users, que permite retornar usuarios de la base de datos
 const createUser =  async(req,res) => { 
 
-    const {idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, contraseniaUsuario, nombreUsuario, direccionUsuario, servicioMedico, fechaNacimientoPaciente, servicioMedicoHospital,
-        confirmacionUsuario,cambioContrasenia} = req.body;
+    try{
+        const {idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, contraseniaUsuario, nombreUsuario, direccionUsuario, servicioMedico, fechaNacimientoPaciente, servicioMedicoHospital,
+            cambioContrasenia} = req.body;
+    
+        if(tipoUsuario == 'H'){ 
+            const response = await pool.query('insert into historia.hospital ("idHospital", "tipoUsuario", "emailHospital", "telefonoHospital", "contraseniaHospital", "nombreHospital", "direccionHospital", "servicioMedicoHospital") values ($1, $2, $3, $4, $5, $6, $7, $8)' , 
+            [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, servicioMedicoHospital])
+            console.log(response);
+            res.json({
+                message: 'Usuario añadido correctamente'
+            })
+    
+        } else{
+    
+            const response = await pool.query('insert into historia.paciente ("idPaciente", "tipoUsuario", "emailPaciente", "telefonoPaciente", "contraseniaPaciente", "nombrePaciente", "direccionPaciente", "fechaNacimientoPaciente") values ($1, $2, $3, $4, $5, $6, $7, $8)' , 
+            [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, fechaNacimientoPaciente])
+            console.log(response);
+            res.json({
+                message: 'Usuario añadido correctamente'
+            })
+        }
 
-    if(tipoUsuario == 'H'){ 
-        const response = await pool.query('insert into historia.hospital ("idHospital", "tipoUsuario", "emailHospital", "telefonoHospital", "contraseniaHospital", "nombreHospital", "direccionHospital", "servicioMedicoHospital", "confirmacionHospital" ,"cambioContrasenia") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' , 
-        [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, servicioMedicoHospital, confirmacionUsuario,cambioContrasenia])
-        console.log(response);
+    }catch(e){
+        console.log(e);
         res.json({
-            message: 'Usuario añadido correctamente'
-        })
-
-    } else{
-
-        const response = await pool.query('insert into historia.paciente ("idPaciente", "tipoUsuario", "emailPaciente", "telefonoPaciente", "contraseniaPaciente", "nombrePaciente", "direccionPaciente", "fechaNacimientoPaciente",  "confirmacionPaciente" ,"cambioContrasenia") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' , 
-        [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, fechaNacimientoPaciente, confirmacionUsuario,cambioContrasenia])
-        console.log(response);
-        res.json({
-            message: 'Usuario añadido correctamente'
+            error: 'El usuario NO fue añadido'
         })
     }
+
+    
   
 }
 
 //ruta users, que permite retornar usuarios de la base de datos
 const createMedico =  async(req,res) => { 
 
-    const {idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, contraseniaUsuario, nombreUsuario, direccionUsuario, servicioMedico, fechaNacimientoPaciente, servicioMedicoHospital,
-        confirmacionUsuario,cambioContrasenia} = req.body;
-
-        const response = await pool.query('insert into historia.medico ("idMedico", "tipoUsuario", "emailMedico", "telefonoMedico", "contraseniaMedico", "nombreMedico", "direccionMedico", "servicioMedico", "confirmacionUsuario" ,"cambioContrasenia") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)' , 
-        [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, servicioMedico, confirmacionUsuario,cambioContrasenia])
-        console.log(response);
+    try{
+        const {idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, contraseniaUsuario, nombreUsuario, direccionUsuario, servicioMedico, fechaNacimientoPaciente, servicioMedicoHospital,} = req.body;
+    
+            const response = await pool.query('insert into historia.medico ("idMedico", "tipoUsuario", "emailMedico", "telefonoMedico", "contraseniaMedico", "nombreMedico", "direccionMedico", "servicioMedico") values ($1, $2, $3, $4, $5, $6, $7, $8)' , 
+            [idUsuario, tipoUsuario, emailUsuario, telefonoUsuario, await encrypt(contraseniaUsuario), nombreUsuario, direccionUsuario, servicioMedico])
+            console.log(response);
+            res.json({
+                message: 'Usuario añadido correctamente'
+            })
+    }catch (e){
+        console.log(e);
         res.json({
-            message: 'Usuario añadido correctamente'
+            error: 'El usuario NO fue añadido'
         })
+    }
 
   
 }
@@ -252,12 +278,14 @@ const loginPaciente = async (req,res) => {
                 tokenSession
             }) 
         } else {
+            console.log()
             res.json({
                 error: 'Contraseña incorrecta'
             })
         }
 
     } catch (e){
+        console.log(e)
         res.json({
             error: 'Contraseña o ID incorrecta'
         })
@@ -266,6 +294,7 @@ const loginPaciente = async (req,res) => {
 }
 
 const createObservaciones = async (req,res) => {
+    try{
     const {observacionMedica,estadoPaciente,especialidadPaciente,idMedico,idPaciente,idHospital} = req.body;
 
         const response = await pool.query('insert into historia.observacion ("observacionMedica","estadoPaciente","especialidadPaciente","idMedico","idPaciente","idHospital") values ($1, $2, $3, $4, $5, $6)' , 
@@ -273,8 +302,18 @@ const createObservaciones = async (req,res) => {
         console.log(response);
         res.json({
             message: 'Observacion añadida correctamente'
-        })
+        }) } 
+        catch(e){
+            console.log(e);
+            res.json({
+                error: 'Error al añadir historia del paciente'
+            }) } 
+        
 }
+
+/*Cada uno de los perfiles puede visualizar los datos que le correspondan según requerimiento a partir de la validación 
+del usuario. Por otra parte, si el usuario desea descargar el archivo que muestra la información de cada paciente
+se ejecuta a función descargaJSON*/
 
 const consultarObservacionesPaciente = async (req,res) => {
     try{
@@ -282,13 +321,29 @@ const consultarObservacionesPaciente = async (req,res) => {
         const response = await pool.query('select * from historia.observacion where "idPaciente" = $1',[idPaciente]);
         if (descarga == 'true'){
             descargaJSON(response)
-            res.json({
-                message: 'Archivo PDF generado exitosamente'
-            })
+            if (response.rowCount > 0){
+                res.json({
+                    message: 'Archivo PDF generado exitosamente'
+                })
+            } else{
+                console.log(e);
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            }
+            
         } else {
-            res.status(200).json(response.rows);
+            if(response.rowCount == 0){
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            } else{
+                res.status(200).json(response.rows);
+            }
+            
         }
     } catch (e){
+        console.log(e);
         res.json({
             message: 'Registro de paciente no encontrado'
         })
@@ -303,13 +358,28 @@ const consultarObservacionesMedico = async (req,res) => {
         const response = await pool.query('select * from historia.observacion where "idMedico" = $1',[idMedico]);
         if (descarga == 'true'){
             descargaJSON(response)
-            res.json({
-                message: 'Archivo PDF generado exitosamente'
-            })
+            if (response.rowCount > 0){
+                res.json({
+                    message: 'Archivo PDF generado exitosamente'
+                })
+            } else{
+                console.log(e);
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            }
         } else {
-            res.status(200).json(response.rows);
+            if(response.rowCount == 0){
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            } else{
+                res.status(200).json(response.rows);
+            }
+            
         }
-    } catch (e) {
+    } catch (e){
+        console.log(e);
         res.json({
             message: 'Registro de paciente no encontrado'
         })
@@ -323,51 +393,89 @@ const consultarObservacionesHospital = async (req,res) => {
         const response = await pool.query('select * from historia.observacion where "idHospital" = $1',[idHospital]);
         if (descarga == 'true'){
             descargaJSON(response)
-            res.json({
-                message: 'Archivo PDF generado exitosamente'
-            })
+            if (response.rowCount > 0){
+                res.json({
+                    message: 'Archivo PDF generado exitosamente'
+                })
+            } else{
+                console.log();
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            }
         } else {
-            res.status(200).json(response.rows);
+            if(response.rowCount == 0){
+                res.json({
+                    message: 'Registro de paciente no encontrado'
+                })
+            } else{
+                res.status(200).json(response.rows);
+            }
+            
         }
-    } catch (e) {
+    } catch (e){
+        console.log(e);
         res.json({
             message: 'Registro de paciente no encontrado'
         })
     }
 }
 
+/*Por medio de esta función, los usuarios pueden descargar la infromación de pacientes según corresponda es decir 
+-> Pacientes: Descargar su historial medico 
+-> Medicos: Descargar el historial medico de un paciente determinado 
+-> Hospital: Descargar la información de un paciente determinado del hospital
+*/
+
 const descargaJSON = async (datos) => {
 
-    const PDFDocument = require("pdfkit");
-    const fs = require("fs");
-    const doc = new PDFDocument();
+    try{
+        const PDFDocument = require("pdfkit"); 
+        const fs = require("fs");
+        const doc = new PDFDocument(); // Se inicia la creación de documento PDF
 
-    doc.text("Información Paciente:");
-    datos.rows.forEach((registro) => {
+        doc.text("Información Paciente:");
 
-        const paciente = `Paciente: ${registro['idPaciente']}`;
-        const medico = `Médico: ${registro['idMedico']}`;
-        const hospital = `Hospital: ${registro['idHospital']}`;
-        const observaciones = `Observaciones Médicas: ${registro['observacionMedica']}`;
-        const estado = `Estado del paciente: ${registro['estadoPaciente']}`;
-        const especialidad = `Especialidad Médico: ${registro['especialidadPaciente']}`;
+        /*Se asgina cada dato del paciente en una variable homonima y se asigna como texto dentro del archivo PDF*/
+        datos.rows.forEach((registro) => {
 
-        doc.text(paciente);
-        doc.text(medico);
-        doc.text(hospital);
-        doc.text(observaciones);
-        doc.text(estado);
-        doc.text(especialidad);
-      });
+            const paciente = `Paciente: ${registro['idPaciente']}`;
+            const medico = `Médico: ${registro['idMedico']}`;
+            const hospital = `Hospital: ${registro['idHospital']}`;
+            const observaciones = `Observaciones Médicas: ${registro['observacionMedica']}`;
+            const estado = `Estado del paciente: ${registro['estadoPaciente']}`;
+            const especialidad = `Especialidad Médico: ${registro['especialidadPaciente']}`;
 
-    doc.pipe(fs.createWriteStream("pacientes.pdf"));
-    doc.end();
+            doc.text("       "); 
+            doc.text("       "); 
+            doc.text(paciente);
+            doc.text(medico);
+            doc.text(hospital);
+            doc.text(observaciones);
+            doc.text(estado);
+            doc.text(especialidad);
+        });
 
-    console.log("Archivo PDF generado exitosamente.");
+        /*Se da nombre al archivo creado PDF*/
+        doc.pipe(fs.createWriteStream("pacientes.pdf"));
+
+        //Se finaliza la realización del documento 
+        doc.end();
+
+        console.log("Archivo PDF generado exitosamente.");
+    } catch (e){
+        console.log(e);
+        res.json({
+            message: 'Archivo PDF NO generado'
+        })
+    } 
+    
+
+
 
 }
 
-module.exports = { getUsers, createUser, loginMedico, loginPaciente, loginHospital, createMedico, checkAuth, checkRoleAuth, createObservaciones, checkRoleAuthMed, 
+module.exports = {createUser, loginMedico, loginPaciente, loginHospital, createMedico, checkAuth, checkRoleAuth, createObservaciones, checkRoleAuthMed, 
     consultarObservacionesPaciente, consultarObservacionesHospital, consultarObservacionesMedico, checkRoleAuthPac, encrypt}
 
 

@@ -1,0 +1,516 @@
+{
+	"info": {
+		"_postman_id": "c7cc8679-1154-4326-b8b9-41b4038c1ed4",
+		"name": "Historia clinica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17451018"
+	},
+	"item": [
+		{
+			"name": "registrarMedico",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NTQyMTA4LCJleHAiOjE2Nzc1NDkzMDh9.PQhe6fkxptYd8LZ4Be-y12rB7eE68GHzv2AARyMG71c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipoUsuario\": \"M\",\r\n    \"emailUsuario\": \"michelle_mora_98@outlook.com\",\r\n    \"telefonoUsuario\": \"3163744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Michell Mora\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 28\",\r\n    \"servicioMedico\": \"Psicología\",\r\n    \"idUsuario\":\"1016107220\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/registroMedico",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registroMedico"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrarPaciente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipoUsuario\": \"P\",\r\n    \"emailUsuario\": \"lorenaGarcia@gmail.com\",\r\n    \"telefonoUsuario\": \"3173744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Lorena Garcia\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 32\",\r\n    \"fechaNacimientoPaciente\": \"1998-11-25\",\r\n    \"confirmacionUsuario\": \"True\",\r\n    \"cambioContrasenia\": \"False\",\r\n    \"idUsuario\": \"106107220\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registrarHospital",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NDY1NTIzLCJleHAiOjE2Nzc0NzI3MjN9.BU8-MOeTXtwabT2NCijjZW6FLwydsFB4T9veIj0MLWw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tipoUsuario\": \"H\",\r\n    \"emailUsuario\": \"michelle_mora_98@outlook.com\",\r\n    \"telefonoUsuario\": \"3163744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Michell Mora\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 28\",\r\n    \"servicioMedicoHospital\": \"Psicologia\",\r\n    \"confirmacionUsuario\": \"True\",\r\n    \"cambioContrasenia\": \"False\",\r\n    \"idUsuario\": \"1016107\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginHospital",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1016107\",\r\n    \"contrasenia\" : \"981225mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login/H",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login",
+						"H"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginPaciente",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"106107220\",\r\n    \"contrasenia\" : \"981225mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login/P",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login",
+						"P"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginMedico",
+			"request": {
+				"auth": {
+					"type": "basic"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1016107220\",\r\n    \"contrasenia\" : \"981225mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/login/M",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"login",
+						"M"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crearObservaciones",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcyMjAsInJvbGUiOiJNIiwiaWF0IjoxNjc3NTI3NTI1LCJleHAiOjE2Nzc1MzQ3MjV9.1Ngr8xNaBkXVDLFWrGMJxlhO6joCXs-WMHOsYaWcuZ4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"observacionMedica\": \"Presenta sintomas de ansiedad\",\r\n    \"estadoPaciente\":\"Estable\",\r\n    \"especialidadPaciente\":\"Psicologia\",\r\n    \"idMedico\":\"1016107220\",\r\n    \"idPaciente\":\"106107220\",\r\n    \"idHospital\":\"1016107\"\r\n}\r\n   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/registroObservaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"registroObservaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultarObservacionesMedico",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcyMjAsInJvbGUiOiJNIiwiaWF0IjoxNjc3NTQwMDc5LCJleHAiOjE2Nzc1NDcyNzl9.MexQtNrLv539pHnBksqSNyR69j2KRWeu84b4SEUGdfs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idMedico\":\"101617220\", \r\n    \"descarga\" :\"false\" \r\n}\r\n   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/consultarObservacionesM",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"consultarObservacionesM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultarObservacionesPaciente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwNjEwNzIyMCwicm9sZSI6IlAiLCJpYXQiOjE2Nzc1NDAyODcsImV4cCI6MTY3NzU0NzQ4N30.z4maDcknrk7_xKFBK7jsp94dbZHFEnp-Xm17wDaZFeE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idPaciente\":\"1010720\",\r\n    \"descarga\":\"true\"\r\n}\r\n   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/consultarObservacionesP",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"consultarObservacionesP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultarObservacioneHospital",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NTQwMzgwLCJleHAiOjE2Nzc1NDc1ODB9.YR_w09Az_lYWOS9rfeA3gFA0GnIV3L8IdoW1KnxHNDw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idHospital\":\"101607\",\r\n    \"descarga\" : \"true\"\r\n}\r\n   \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/consultarObservacionesH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"consultarObservacionesH"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiarContrasenaM",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcyMjAsInJvbGUiOiJNIiwiaWF0IjoxNjc3NTQwMzQ3LCJleHAiOjE2Nzc1NDc1NDd9.SLMGsMZUUIOj9hiwW1jhfzqnLV1Ix4iRnCeJTMBf1XI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1016107220\",\r\n    \"nuevaContrasena\" : \"98125mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cambiarContrasenaM",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cambiarContrasenaM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiarContrasenaP",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwNjEwNzIyMCwicm9sZSI6IlAiLCJpYXQiOjE2Nzc1NDM3OTksImV4cCI6MTY3NzU1MDk5OX0.BnK7-9sxtvD-8hlqVUk1KzrJglDJAOWKS20S5A1tzlY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"106107220\",\r\n    \"nuevaContrasena\" : \"981225mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cambiarContrasenaP",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cambiarContrasenaP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cambiarContrasenaH",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NTQ0NjIzLCJleHAiOjE2Nzc1NTE4MjN9.LIro4Jam00nUlJvRIXT3q1ZL40UooYSLUf7c0O70wsk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1016107\",\r\n    \"nuevaContrasena\" : \"981225mD\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/cambiarContrasenaH",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"cambiarContrasenaH"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperrarContrasena",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : \"1016107220\",\r\n    \"tipoUsuario\" : \"M\",\r\n    \"nuevaContrasena\" : \"981222\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/recuperarContrasena",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"recuperarContrasena"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

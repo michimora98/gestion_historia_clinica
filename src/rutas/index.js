@@ -1,10 +1,10 @@
+//Rutas implementadas en las funciones del controlador principal, estas se ejecutan por medio del consumo de API en POSTMAN
+
 const { Router } = require ('express'); 
 const rutas = Router(); 
 
-//ruta users, que permite retornar usuarios de la base de datos
-const {getUsers, createUser, loginPaciente,loginHospital, loginMedico} = require('../controladores/index.controllers');
+const {createUser, loginPaciente,loginHospital, loginMedico} = require('../controladores/index.controllers');
 
-rutas.get('/users', getUsers); 
 rutas.post('/login/P', loginPaciente); 
 rutas.post('/login/H', loginHospital); 
 rutas.post('/login/M', loginMedico); 

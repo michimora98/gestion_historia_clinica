@@ -1,9 +1,10 @@
+//Permite establecer donde se alojan las rutas que serán ejecutadas a lo largo de la ejecución del programa
 const express = require ('express'); 
 const app = express(); 
 
 //middlewares 
 app.use(express.json());
-app.use(express.urlencoded()); //Permite convertir en un objeto el dato de un formulario
+app.use(express.urlencoded()); 
 
 
 //definir las rutas
