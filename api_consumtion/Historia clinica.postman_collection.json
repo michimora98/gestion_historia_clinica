@@ -51,7 +51,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"tipoUsuario\": \"P\",\r\n    \"emailUsuario\": \"lorenaGarcia@gmail.com\",\r\n    \"telefonoUsuario\": \"3173744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Lorena Garcia\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 32\",\r\n    \"fechaNacimientoPaciente\": \"1998-11-25\",\r\n    \"confirmacionUsuario\": \"True\",\r\n    \"cambioContrasenia\": \"False\",\r\n    \"idUsuario\": \"106107220\"\r\n}",
+					"raw": "{\r\n    \"tipoUsuario\": \"P\",\r\n    \"emailUsuario\": \"lorenaGarcia@gmail.com\",\r\n    \"telefonoUsuario\": \"3173744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Lorena Garcia\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 32\",\r\n    \"fechaNacimientoPaciente\": \"1998-11-25\",\r\n    \"idUsuario\": \"1061072201\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -89,7 +89,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"tipoUsuario\": \"H\",\r\n    \"emailUsuario\": \"michelle_mora_98@outlook.com\",\r\n    \"telefonoUsuario\": \"3163744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Michell Mora\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 28\",\r\n    \"servicioMedicoHospital\": \"Psicologia\",\r\n    \"confirmacionUsuario\": \"True\",\r\n    \"cambioContrasenia\": \"False\",\r\n    \"idUsuario\": \"1016107\"\r\n}",
+					"raw": "{\r\n    \"tipoUsuario\": \"H\",\r\n    \"emailUsuario\": \"michelle_mora_98@outlook.com\",\r\n    \"telefonoUsuario\": \"3163744244\",\r\n    \"contraseniaUsuario\": \"981225mD\",\r\n    \"nombreUsuario\":\"Michell Mora\",\r\n    \"direccionUsuario\": \"calle 20 B # 112 B 28\",\r\n    \"servicioMedicoHospital\": \"Psicologia\",\r\n    \"idUsuario\": \"10161075\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -252,7 +252,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcyMjAsInJvbGUiOiJNIiwiaWF0IjoxNjc3NTQwMDc5LCJleHAiOjE2Nzc1NDcyNzl9.MexQtNrLv539pHnBksqSNyR69j2KRWeu84b4SEUGdfs",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcyMjAsInJvbGUiOiJNIiwiaWF0IjoxNjc3NTQ3ODY1LCJleHAiOjE2Nzc1NTUwNjV9.0QNpy9HEV_Gd1wNykA_R3yMzLf1nZl58KCjc_-Hxnx4",
 							"type": "string"
 						}
 					]
@@ -261,7 +261,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idMedico\":\"101617220\", \r\n    \"descarga\" :\"false\" \r\n}\r\n   \r\n",
+					"raw": "{\r\n    \"idMedico\":\"1016107220\", \r\n    \"descarga\" :\"true\" \r\n}\r\n   \r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -293,7 +293,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwNjEwNzIyMCwicm9sZSI6IlAiLCJpYXQiOjE2Nzc1NDAyODcsImV4cCI6MTY3NzU0NzQ4N30.z4maDcknrk7_xKFBK7jsp94dbZHFEnp-Xm17wDaZFeE",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwNjEwNzIyMCwicm9sZSI6IlAiLCJpYXQiOjE2Nzc1NDc3ODgsImV4cCI6MTY3NzU1NDk4OH0.xFT92PfVpVG0FEdO6xpaTPNNYBf6MXao6_wwNQlMges",
 							"type": "string"
 						}
 					]
@@ -302,7 +302,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idPaciente\":\"1010720\",\r\n    \"descarga\":\"true\"\r\n}\r\n   \r\n",
+					"raw": "{\r\n    \"idPaciente\":\"106107220\",\r\n    \"descarga\":\"false\"\r\n}\r\n   \r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -334,7 +334,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NTQwMzgwLCJleHAiOjE2Nzc1NDc1ODB9.YR_w09Az_lYWOS9rfeA3gFA0GnIV3L8IdoW1KnxHNDw",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEwMTYxMDcsInJvbGUiOiJIIiwiaWF0IjoxNjc3NTQ3NjUxLCJleHAiOjE2Nzc1NTQ4NTF9.BRQxbrjMo2tdf4hW7AVXFe0ZCAJa0E3Vo9dKgQ8M_aE",
 							"type": "string"
 						}
 					]
@@ -343,7 +343,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idHospital\":\"101607\",\r\n    \"descarga\" : \"true\"\r\n}\r\n   \r\n",
+					"raw": "{\r\n    \"idHospital\":\"1016107\",\r\n    \"descarga\" : \"true\"\r\n}\r\n   \r\n",
 					"options": {
 						"raw": {
 							"language": "json"
